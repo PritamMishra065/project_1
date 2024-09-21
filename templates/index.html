@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medicine Recommendation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://wallpaperaccess.com/full/1687789.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .container {
+            background: #ffffff;
+            color: #333;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+        .navbar-dark .navbar-brand {
+            color: #fff;
+            font-weight: 700;
+        }
+        .form-control {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .btn {
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1F4037, #99F2C8);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1F4037, #99F2C8);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #1F4037, #99F2C8);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #1F4037, #99F2C8);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #333;
+        }
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+        }
+        .modal-body {
+            border-bottom: 1px solid #ddd;
+        }
+        .toggle-button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .toggle-button:hover {
+            background: linear-gradient(135deg, #0056b3, #003d7a);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .modal-position {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: translateY(10px);
+            width: 100%;
+        }
+        .show-modal .modal-position {
+            display: block;
+        }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .container-left, .container-right {
+            border: 2px solid #007bff; /* Border color for containers */
+            border-radius: 10px;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container-left {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .container-right {
+            flex: 0 0 300px; /* Adjust width as needed */
+        }
+        h1 {
+            font-family: 'Crimson Text', serif;
+        }
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="img.png" alt="">
+                Home
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Medicine Recommendation System</h1>
+        <h3 class="mt-4 mb-4">Foresee your Health</h3>
+
+        <div class="flex-container my-4">
+
+            <div class="container container-left">
+                <form action="/predict" method="post">
+                    <div class="form-group">
+                        <label for="symptoms">Select Symptoms:</label>
+                        <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="Type Symptoms">
+                    </div>
+                    <br>
+                    <button type="button" id="startSpeechRecognition" class="btn btn-primary">
+                        Start Speech Recognition
+                    </button>
+                    <br>
+                    <!-- Display the transcribed text here -->
+                    <div id="transcription"></div>
+                    {% if message %}
+                    <p>{{ message }}</p>
+                    {% endif %}
+                    <br>
+                    <button type="submit" class="btn btn-danger btn-lg">Submit</button>
+                </form>
+            </div>
+
+            {% if predicted_disease %}
+
+            <div class="container container-right">
+                <h1 class="text-left my-4">Result</h1>
+                <div class="result-containers" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                    <!-- Buttons to toggle display -->
+                    <button class="toggle-button" id="diseaseButton" onclick="toggleModal('diseaseModal')">
+                        Disease
+                    </button>
+                    <div class="modal-position" id="diseaseModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Predicted Disease</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('diseaseModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ predicted_disease }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button" id="descriptionButton" onclick="toggleModal('descriptionModal')">
+                        Description
+                    </button>
+                    <div class="modal-position" id="descriptionModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Description</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('descriptionModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ dis_des }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button" id="precautionButton" onclick="toggleModal('precautionModal')">
+                        Precaution
+                    </button>
+                    <div class="modal-position" id="precautionModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Precaution</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('precautionModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    {% for i in my_precautions %}
+                                        <li>{{ i }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button" id="medicationsButton" onclick="toggleModal('medicationsModal')">
+                        Medications
+                    </button>
+                    <div class="modal-position" id="medicationsModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Medications</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('medicationsModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    {% for i in medications %}
+                                        <li>{{ i }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button" id="workoutsButton" onclick="toggleModal('workoutsModal')">
+                        Workouts
+                    </button>
+                    <div class="modal-position" id="workoutsModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Workouts</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('workoutsModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    {% for i in workout %}
+                                        <li>{{ i }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button" id="dietsButton" onclick="toggleModal('dietsModal')">
+                        Diets
+                    </button>
+                    <div class="modal-position" id="dietsModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Diets</h5>
+                                <button type="button" class="btn-close" onclick="toggleModal('dietsModal')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    {% for i in my_diet %}
+                                        <li>{{ i }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+            } else {
+                document.querySelectorAll('.modal-position').forEach(m => m.style.display = 'none');
+                modal.style.display = 'block';
+            }
+        }
+
+        document.getElementById('startSpeechRecognition').addEventListener('click', function() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function (event) {
+                document.getElementById('transcription').textContent = event.results[0][0].transcript;
+            };
+
+            recognition.onend = function () {
+                console.log('Speech recognition ended.');
+            };
+
+            recognition.start();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
